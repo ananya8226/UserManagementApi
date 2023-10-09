@@ -1,0 +1,1054 @@
+openapi: 3.0.0
+info:
+  title: userManagement
+  contact: {}
+  version: '1.0'
+servers:
+- url: http://localhost:5000/v1
+  variables: {}
+paths:
+  /auth/forgotPassword:
+    post:
+      tags:
+      - user
+      summary: forget-password
+      operationId: forget-password
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/forget-password-request'
+              - example:
+                  email: kritikmodi@gmail.com
+                  phone: '+917985397630'
+            example:
+              email: kritikmodi@gmail.com
+              phone: '+917985397630'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /auth/verifyOtp:
+    post:
+      tags:
+      - user
+      summary: verify-otp
+      operationId: verify-otp
+      parameters:
+      - name: token
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImtyaXRpa21vZGlAZ21haWwuY29tIiwib3RwIjoiODIyNiIsInRva2VuVHlwZSI6IkZPUkdFVF9QQVNTV09SRCIsImlhdCI6MTY5MzgyOTk1OSwiZXhwIjoxNjk2NDIxOTU5fQ.BLk75JDmJ7QShwp8n3NJWFOqwfF6o54q7PDnqke_5vs
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/verify-otp-request'
+              - example:
+                  otp: '8226'
+            example:
+              otp: '8226'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /auth/resetPassword:
+    patch:
+      tags:
+      - user
+      summary: reset-password
+      operationId: reset-password
+      parameters:
+      - name: token
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImtyaXRpa21vZGlAZ21haWwuY29tIiwidG9rZW5UeXBlIjoiUkVTRVRfUEFTU1dPUkQiLCJpYXQiOjE2OTM4MzA0MTgsImV4cCI6MTY5NjQyMjQxOH0._DwWI6opFUqmlADHV1lF3fe73RnHj7QGMAx-LQ5OY5I
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/reset-password-request'
+              - example:
+                  newPassword: kritik123
+            example:
+              newPassword: kritik123
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /auth/login:
+    patch:
+      tags:
+      - user
+      summary: login
+      operationId: login
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/loginrequest'
+              - example:
+                  email: ananya@gmail.com
+                  password: ananya123
+            example:
+              email: ananya@gmail.com
+              password: ananya123
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /auth/logout:
+    patch:
+      tags:
+      - user
+      summary: logout
+      operationId: logout
+      parameters:
+      - name: authToken
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuYW55YUBnbWFpbC5jb20iLCJ0b2tlblR5cGUiOiJMT0dJTiIsImlhdCI6MTY5MzgzMDk4NCwiZXhwIjoxNjk2NDIyOTg0fQ.1Giw1bxU6UqigMbca-2mWORK2TyCH_ETutroi04Zd3A
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /auth/signup:
+    post:
+      tags:
+      - user
+      summary: signup
+      operationId: signup
+      parameters: []
+      requestBody:
+        content:
+          multipart/form-data:
+            encoding: {}
+            schema:
+              required:
+              - email
+              - fullname
+              - phone
+              - password
+              - profileImage
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: harsh@gmail.com
+                fullname:
+                  type: string
+                  example: harsh
+                phone:
+                  type: integer
+                  format: int64
+                  example: 8574822534
+                password:
+                  type: string
+                  example: harsh123
+                profileImage:
+                  type: string
+                  format: binary
+        required: false
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /auth/changePassword:
+    patch:
+      tags:
+      - user
+      summary: change-password
+      operationId: change-password
+      parameters:
+      - name: authToken
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuYW55YTgyMjZAZ21haWwuY29tIiwib3RwIjoiODIyNiIsInRva2VuVHlwZSI6IkZPUkdFVF9QQVNTV09SRCIsImlhdCI6MTY5Mzc2MzgwNCwiZXhwIjoxNjk2MzU1ODA0fQ.iZSzZ5lJgPgvpMWI7SuUTqHrjkFyGxmgDE24Pz-Di9U
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/change-password-request'
+              - example:
+                  password: ananya8226
+                  newPassword: ananya8226
+            example:
+              password: ananya8226
+              newPassword: ananya8226
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /auth/editUserDetail:
+    patch:
+      tags:
+      - user
+      summary: edit-user-detail
+      operationId: edit-user-detail
+      parameters:
+      - name: authToken
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuYW55YTgyMjZAZ21haWwuY29tIiwib3RwIjoiODIyNiIsInRva2VuVHlwZSI6IkZPUkdFVF9QQVNTV09SRCIsImlhdCI6MTY5Mzc2MzgwNCwiZXhwIjoxNjk2MzU1ODA0fQ.iZSzZ5lJgPgvpMWI7SuUTqHrjkFyGxmgDE24Pz-Di9U
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            encoding: {}
+            schema:
+              required:
+              - phone
+              type: object
+              properties:
+                phone:
+                  type: integer
+                  format: int64
+                  example: 6392569656
+        required: false
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /auth/getUserDetail:
+    get:
+      tags:
+      - user
+      summary: get-user-detail
+      operationId: get-user-detail
+      parameters:
+      - name: authToken
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuYW55YTgyMjZAZ21haWwuY29tIiwib3RwIjoiODIyNiIsInRva2VuVHlwZSI6IkZPUkdFVF9QQVNTV09SRCIsImlhdCI6MTY5Mzc2MzgwNCwiZXhwIjoxNjk2MzU1ODA0fQ.iZSzZ5lJgPgvpMWI7SuUTqHrjkFyGxmgDE24Pz-Di9U
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /auth/getAllUser:
+    get:
+      tags:
+      - user
+      summary: get-all-user
+      operationId: get-all-user
+      parameters:
+      - name: search
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: an
+      - name: limit
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+          example: 5
+      - name: page
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+          example: 1
+      - name: sort
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: fullname
+      - name: order
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: asc
+      - name: authToken
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuYW55YTgyMjZAZ21haWwuY29tIiwib3RwIjoiODIyNiIsInRva2VuVHlwZSI6IkZPUkdFVF9QQVNTV09SRCIsImlhdCI6MTY5Mzc2MzgwNCwiZXhwIjoxNjk2MzU1ODA0fQ.iZSzZ5lJgPgvpMWI7SuUTqHrjkFyGxmgDE24Pz-Di9U
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /user/createPost:
+    post:
+      tags:
+      - post
+      summary: create-post
+      operationId: create-post
+      parameters:
+      - name: authToken
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuYW55YTgyMjZAZ21haWwuY29tIiwib3RwIjoiODIyNiIsInRva2VuVHlwZSI6IkZPUkdFVF9QQVNTV09SRCIsImlhdCI6MTY5Mzc2MzgwNCwiZXhwIjoxNjk2MzU1ODA0fQ.iZSzZ5lJgPgvpMWI7SuUTqHrjkFyGxmgDE24Pz-Di9U
+      requestBody:
+        content:
+          multipart/form-data:
+            encoding: {}
+            schema:
+              required:
+              - title
+              - postImage
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: Badminton
+                postImage:
+                  type: string
+                  format: binary
+        required: false
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /user/getAllPost:
+    get:
+      tags:
+      - post
+      summary: get-all-post
+      operationId: get-all-post
+      parameters:
+      - name: limit
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+          example: 5
+      - name: page
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+          example: 1
+      - name: order
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: desc
+      - name: sort
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: createdAt
+      - name: authToken
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuYW55YTgyMjZAZ21haWwuY29tIiwib3RwIjoiODIyNiIsInRva2VuVHlwZSI6IkZPUkdFVF9QQVNTV09SRCIsImlhdCI6MTY5Mzc2MzgwNCwiZXhwIjoxNjk2MzU1ODA0fQ.iZSzZ5lJgPgvpMWI7SuUTqHrjkFyGxmgDE24Pz-Di9U
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /user/getPost/12:
+    get:
+      tags:
+      - post
+      summary: get-one-post
+      operationId: get-one-post
+      parameters:
+      - name: authToken
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuYW55YTgyMjZAZ21haWwuY29tIiwib3RwIjoiODIyNiIsInRva2VuVHlwZSI6IkZPUkdFVF9QQVNTV09SRCIsImlhdCI6MTY5Mzc2MzgwNCwiZXhwIjoxNjk2MzU1ODA0fQ.iZSzZ5lJgPgvpMWI7SuUTqHrjkFyGxmgDE24Pz-Di9U
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /user/deletePost/3:
+    patch:
+      tags:
+      - post
+      summary: detele-one-post
+      operationId: detele-one-post
+      parameters:
+      - name: authToken
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuYW55YTgyMjZAZ21haWwuY29tIiwib3RwIjoiODIyNiIsInRva2VuVHlwZSI6IkZPUkdFVF9QQVNTV09SRCIsImlhdCI6MTY5Mzc2MzgwNCwiZXhwIjoxNjk2MzU1ODA0fQ.iZSzZ5lJgPgvpMWI7SuUTqHrjkFyGxmgDE24Pz-Di9U
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /user/deleteAll:
+    patch:
+      tags:
+      - post
+      summary: delete-all-post
+      operationId: delete-all-post
+      parameters:
+      - name: authToken
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuYW55YTI5MDYyMDAwQGdtYWlsLmNvbSIsIm90cCI6IjgyMjYiLCJ0b2tlblR5cGUiOiJGT1JHRVRfUEFTU1dPUkQiLCJpYXQiOjE2OTM3NjI2NzksImV4cCI6MTY5NjM1NDY3OX0.5R_r4IxlJqor75oW4T1n1fKPiOaMDP3fRwO5GSm521g
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /user/editPost/4:
+    put:
+      tags:
+      - post
+      summary: edit-post
+      operationId: edit-post
+      parameters:
+      - name: authToken
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImtyaXRpa21vZGlAZ21haWwuY29tIiwidG9rZW5UeXBlIjoiUkVTRVRfUEFTU1dPUkQiLCJpYXQiOjE2OTM4MzA0MTgsImV4cCI6MTY5NjQyMjQxOH0._DwWI6opFUqmlADHV1lF3fe73RnHj7QGMAx-LQ5OY5I
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            encoding: {}
+            schema:
+              required:
+              - title
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: opera
+        required: false
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /admin/adminLogin:
+    patch:
+      tags:
+      - admin
+      summary: login
+      operationId: Patchlogin
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/loginrequest'
+              - example:
+                  email: ADMIN@GMAIL.COM
+                  password: ADMIN123
+            example:
+              email: ADMIN@GMAIL.COM
+              password: ADMIN123
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /admin/adminLogout:
+    patch:
+      tags:
+      - admin
+      summary: logout
+      operationId: Patchlogout
+      parameters:
+      - name: authToken
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkFETUlOQEdNQUlMLkNPTSIsInRva2VuVHlwZSI6IkxPR0lOIiwiaWF0IjoxNjkzODM0OTg3LCJleHAiOjE2OTY0MjY5ODd9.UHmofs4sR4nhbC04FBvXu440hx8ylllaMhP71fRD7PU
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /admin/adminChangePassword:
+    patch:
+      tags:
+      - admin
+      summary: change-password
+      operationId: Patchchange-password
+      parameters:
+      - name: authToken
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkFETUlOQEdNQUlMLkNPTSIsInRva2VuVHlwZSI6IkxPR0lOIiwiaWF0IjoxNjkzODM1MDQwLCJleHAiOjE2OTY0MjcwNDB9.pqtomVQhJ2oTDycUHTpML4IsLgge68S9_Ua13jbExNE
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/change-password-request'
+              - example:
+                  newPassword: ADMIN123
+                  password: ADMIN123
+            example:
+              newPassword: ADMIN123
+              password: ADMIN123
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /admin/changeUserStatus:
+    patch:
+      tags:
+      - admin
+      summary: change-user-status
+      operationId: change-user-status
+      parameters:
+      - name: authToken
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkFETUlOQEdNQUlMLkNPTSIsInRva2VuVHlwZSI6IkxPR0lOIiwiaWF0IjoxNjkzODM1MDQwLCJleHAiOjE2OTY0MjcwNDB9.pqtomVQhJ2oTDycUHTpML4IsLgge68S9_Ua13jbExNE
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/change-user-status-request'
+              - example:
+                  status: INACTIVE
+                  email: kritik@gmail.com
+            example:
+              status: INACTIVE
+              email: kritik@gmail.com
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /admin/getPostList:
+    get:
+      tags:
+      - admin
+      summary: get-post-list
+      operationId: get-post-list
+      parameters:
+      - name: search
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: a
+      - name: limit
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+          example: 5
+      - name: page
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+          example: 1
+      - name: sort
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: title
+      - name: order
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: desc
+      - name: authToken
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkFETUlOQEdNQUlMLkNPTSIsInRva2VuVHlwZSI6IkxPR0lOIiwiaWF0IjoxNjkzODM1MDQwLCJleHAiOjE2OTY0MjcwNDB9.pqtomVQhJ2oTDycUHTpML4IsLgge68S9_Ua13jbExNE
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /admin/getUserList:
+    get:
+      tags:
+      - admin
+      summary: get-user-list
+      operationId: get-user-list
+      parameters:
+      - name: page
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+          example: 1
+      - name: sort
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: email
+      - name: order
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: asc
+      - name: authToken
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkFETUlOQEdNQUlMLkNPTSIsInRva2VuVHlwZSI6IkxPR0lOIiwiaWF0IjoxNjkzODM1MDQwLCJleHAiOjE2OTY0MjcwNDB9.pqtomVQhJ2oTDycUHTpML4IsLgge68S9_Ua13jbExNE
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /auth/follow:
+    post:
+      tags:
+      - follow
+      summary: follow-user
+      operationId: follow-user
+      parameters:
+      - name: authToken
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuYW55YTI5MDYyMDAwQGdtYWlsLmNvbSIsIm90cCI6IjgyMjYiLCJ0b2tlblR5cGUiOiJGT1JHRVRfUEFTU1dPUkQiLCJpYXQiOjE2OTM3NjI2NzksImV4cCI6MTY5NjM1NDY3OX0.5R_r4IxlJqor75oW4T1n1fKPiOaMDP3fRwO5GSm521g
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/follow-user-request'
+              - example:
+                  id: '8'
+            example:
+              id: '8'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /auth/getFollowing:
+    get:
+      tags:
+      - follow
+      summary: get-following
+      operationId: get-following
+      parameters:
+      - name: search
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: anu
+      - name: limit
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+          example: 2
+      - name: page
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+          example: 1
+      - name: sort
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: phone
+      - name: order
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: asc
+      - name: authToken
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuYW55YTI5MDYyMDAwQGdtYWlsLmNvbSIsIm90cCI6IjgyMjYiLCJ0b2tlblR5cGUiOiJGT1JHRVRfUEFTU1dPUkQiLCJpYXQiOjE2OTM3NjI2NzksImV4cCI6MTY5NjM1NDY3OX0.5R_r4IxlJqor75oW4T1n1fKPiOaMDP3fRwO5GSm521g
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /auth/getFollower:
+    get:
+      tags:
+      - follow
+      summary: get-follower
+      operationId: get-follower
+      parameters:
+      - name: search
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: krit
+      - name: order
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: asc
+      - name: sort
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: email
+      - name: authToken
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuYW55YTI5MDYyMDAwQGdtYWlsLmNvbSIsIm90cCI6IjgyMjYiLCJ0b2tlblR5cGUiOiJGT1JHRVRfUEFTU1dPUkQiLCJpYXQiOjE2OTM3NjI2NzksImV4cCI6MTY5NjM1NDY3OX0.5R_r4IxlJqor75oW4T1n1fKPiOaMDP3fRwO5GSm521g
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /auth/getFollowingPosts:
+    get:
+      tags:
+      - follow
+      summary: get-following-post
+      operationId: get-following-post
+      parameters:
+      - name: search
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: sort
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: email
+      - name: order
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: asc
+      - name: page
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+          example: 1
+      - name: authToken
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuYW55YTI5MDYyMDAwQGdtYWlsLmNvbSIsIm90cCI6IjgyMjYiLCJ0b2tlblR5cGUiOiJGT1JHRVRfUEFTU1dPUkQiLCJpYXQiOjE2OTM3NjI2NzksImV4cCI6MTY5NjM1NDY3OX0.5R_r4IxlJqor75oW4T1n1fKPiOaMDP3fRwO5GSm521g
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+components:
+  schemas:
+    forget-password-request:
+      title: forget-password-request
+      required:
+      - email
+      - phone
+      type: object
+      properties:
+        email:
+          type: string
+        phone:
+          type: string
+      example:
+        email: kritikmodi@gmail.com
+        phone: '+917985397630'
+    verify-otp-request:
+      title: verify-otp-request
+      required:
+      - otp
+      type: object
+      properties:
+        otp:
+          type: string
+      example:
+        otp: '8226'
+    reset-password-request:
+      title: reset-password-request
+      required:
+      - newPassword
+      type: object
+      properties:
+        newPassword:
+          type: string
+      example:
+        newPassword: kritik123
+    loginrequest:
+      title: loginrequest
+      required:
+      - email
+      - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: ananya@gmail.com
+        password: ananya123
+    change-password-request:
+      title: change-password-request
+      required:
+      - password
+      - newPassword
+      type: object
+      properties:
+        password:
+          type: string
+        newPassword:
+          type: string
+      example:
+        password: ananya8226
+        newPassword: ananya8226
+    change-user-status-request:
+      title: change-user-status-request
+      required:
+      - status
+      - email
+      type: object
+      properties:
+        status:
+          type: string
+        email:
+          type: string
+      example:
+        status: INACTIVE
+        email: kritik@gmail.com
+    follow-user-request:
+      title: follow-user-request
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          type: string
+      example:
+        id: '8'
+tags:
+- name: user
+- name: post
+- name: admin
+- name: follow
